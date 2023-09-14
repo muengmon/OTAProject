@@ -47,6 +47,6 @@ void sendtoSQLServer(String ip_,float temperature,float humidity,String IdName_,
     }
     Serial.println();
     Serial.println("closing connection");
-      
+    
      
   } 

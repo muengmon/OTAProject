@@ -14,7 +14,7 @@ float temp;
 float humi;
 
 #define pininput D1
-#define SET_PIN D7      //ขา เอาไว้รีเซตค่า
+     //ขา เอาไว้รีเซตค่า
 
 //----------------------------------WIFI MANAGER -------------------------------------------------------------------------------------------------------------------
 #include <DNSServer.h>
@@ -37,7 +37,7 @@ BearSSL::CertStore certStore;
 #include "cert.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-float FirmwareVer= 0.2;
+float FirmwareVer= 0.4;
 
 
 
@@ -85,7 +85,12 @@ long lastMeasure1 = 0;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 //========================================================================================================================================================
+//-----------------------------wifi reset --//ขา เอาไว้รีเซตค่า--------------------------------------------------------
+#define RESET_PIN D7  // GIOP7 pin connected to button
 
+// Variables will change:
+int lastState = LOW;  // the previous state from the input pin
+int currentState;
 
  //------------เช็ค wifi---------------------------------------------------------------------------
        //  WiFiClient client;    //
@@ -138,7 +143,7 @@ void setup()
   
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(pininput, INPUT_PULLUP); 
-  pinMode(SET_PIN, INPUT_PULLUP);
+  pinMode(RESET_PIN, INPUT_PULLUP);
   pinMode(pinOutput, OUTPUT);
   digitalWrite(pinOutput, HIGH);
 
@@ -183,7 +188,6 @@ if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
 
  
 
-    WIFI_Reset ();
  
  // delay(2000);
 //============================================WIFI_Manager=================================================================================================================================================================================
@@ -203,7 +207,7 @@ setClock();
 
 void loop()
 {
-  
+  Wifi_Reset_begin();
   
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
   delay(500);                       // wait for a second
@@ -275,11 +279,12 @@ void loop()
         }
     lastMeasure = now;
     sendtoSQLServer(ip_,temp,humi,IdName_,mac_addr);
+    digitalWrite(LED_BUILTIN, HIGH);
     //  sendlineNotify(temperature,humidity,count);
 
-        delay(100);   
+        delay(500);   
   }
-
+  digitalWrite(LED_BUILTIN, LOW);
   // กำหนดเวลาในการส่งข้อมูลLine
       now1 = millis();
     if (now1 - lastMeasure1 > atoi(TIMEalert)*60000)
@@ -293,16 +298,5 @@ void loop()
    Serial.println(now1);
   }
    FirmwareUpdate();
-  // repeatedCall(); 
+  
 }
-/*
-void connect_wifi()
-{
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print("O");
-  }                                   
-  Serial.println("Connected to WiFi");
-}*/

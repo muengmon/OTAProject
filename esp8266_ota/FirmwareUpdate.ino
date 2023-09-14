@@ -40,11 +40,14 @@ void FirmwareUpdate()
 
         // file found at server
          if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
+          
+ //=============================เช็คเวอร์ขั่นจากค่าที่เข้ามาผ่าน payload===================================================================================================================================
            String payload = https.getString();
            Serial.println("payload = " +payload);
            Serial.println("FirmwareVer = " +String(FirmwareVer));
              float payloadfloat = payload.toFloat();
-           if(payloadfloat  == FirmwareVer)
+         
+           if(payloadfloat  == FirmwareVer)          //   เปลี่ยบเทียบ vertion
               {   
                Serial.println("Device already on latest firmware version"); 
              return;
