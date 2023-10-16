@@ -14,6 +14,8 @@ void setClock() {
     delay(500);
     Serial.print(".");
     now = time(nullptr);
+    WiFi.setAutoReconnect(true);
+    WiFi.persistent(true);
   }
 
 }
@@ -25,12 +27,12 @@ void FirmwareUpdate()
   HTTPClient https; 
   if (!client.connect(hostFW, httpsPortFW)) {
     Serial.println("Connection  hostFW failed");
-                    display.clearDisplay();
+                  /*  display.clearDisplay();
                     display.setTextColor(WHITE);
                     display.setCursor(0,0);
                     display.println("Connection  host FW failed ");
                     display.display();   
-                    delay(3000)  ;          
+                    delay(3000)  ;    */      
     return;
   }
   client.print(String("GET ") + URL_fw_Version + " HTTP/1.1\r\n" +

@@ -10,22 +10,22 @@ void sendtoSQLServer(String ip_,float temperature,float humidity,String IdName_)
         Serial.println("ไม่สามารถเชื่อมต่อ ฐานข้อมูล");
         
         //แสดงในจอ  display
-      //  delay(1000);
-       display.clearDisplay();
+        delay(500);
+   /*    display.clearDisplay();
        display.setTextColor(WHITE);
        display.setTextSize(1);
        display.setCursor(0, 0);
        display.println("DB connection failed");
        display.display();
       // ESP.restart();       // คำสั่งรีเซ็ต ESP
-      delay(2000);
+      delay(2000);*/
     }
 
 
    // เชื่อมต่อกับ server https  ไม่สามารถใช้ http ได้ 
    else if(client.connect(host, httpPort))
    {
- client.print(String("GET https://tempchg.synology.me/connect1.php?") + 
+ client.print(String("GET https://tempchg.synology.me/connect.php?") + 
                           ("&ip=") + ip_ +
                           ("&temperature=") + temperature +
                           ("&humidity=") + humidity +
@@ -38,9 +38,9 @@ void sendtoSQLServer(String ip_,float temperature,float humidity,String IdName_)
     unsigned long timeout = millis();
     while (client.available() == 0) {
         if (millis() - timeout > 3000) {
-                LINE.setToken(line_token);
+            /*    LINE.setToken(line_token);
                 LINE.notifySticker(2,34); // เป็นคำสั่งใช้ ส่ง Line Sticker ด้วย PackageID 3 , StickerID 240
-                LINE.notify("ระบบแจ้งอุณหภูมิ  "+String(IdName)+"  ไม่สามารถเชื่อมฐานข้อมูลได้ T-T!");
+                LINE.notify("ระบบแจ้งอุณหภูมิ  "+String(IdName)+"  ไม่สามารถเชื่อมฐานข้อมูลได้ T-T!");*/
                 Serial.println(">>> หมดเวลาเชื่อมต่อ ฐานข้อมูล !");
             client.stop();
             return;
@@ -54,15 +54,15 @@ void sendtoSQLServer(String ip_,float temperature,float humidity,String IdName_)
         Serial.print(line); 
     }
     Serial.println();
-       display.clearDisplay();
+    /*  display.clearDisplay();
        display.setTextSize(1);
        display.setTextColor(WHITE);
        display.setCursor(0, 0);
         // Display static text
        display.println("closing connection");
        display.setTextSize(1);
-       display.display();
+       display.display();*/
        Serial.println("closing connection");
-    delay(2000);
+    delay(500);
      
   } 

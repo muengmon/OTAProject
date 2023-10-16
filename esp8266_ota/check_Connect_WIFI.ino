@@ -16,14 +16,19 @@
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
   delay(500); 
         //แสดงในจอ  display
-        delay(2000);
+       
        display.clearDisplay();
        display.setTextColor(WHITE);
        display.setTextSize(1);
        display.setCursor(0, 0);
        display.println("WIFI connection failed");
        display.display();
-       ESP.restart();       // คำสั่งรีเซ็ต ESP
+        delay(2000);
+    //WiFi.disconnect();
+   // WiFi.reconnect();
+    
+    WiFi.setAutoReconnect(true);
+    WiFi.persistent(true);
     }
 
 

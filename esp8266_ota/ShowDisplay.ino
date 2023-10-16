@@ -85,6 +85,6 @@ display.setTextSize(1);
   delay(100);
 
   */
-   delay(10000);
+  // delay(10000);
  // display.clearDisplay();
   }

@@ -29,10 +29,7 @@
         configFile.close();
       }
     }
-     /* digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-      delay(1000);                       // wait for a second
-      digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-      delay(1000); */
+     
           
   }
 
@@ -62,19 +59,25 @@
   wifiManager.addParameter(&custom_TEMPalert);
   wifiManager.addParameter(&custom_text3);
   wifiManager.addParameter(&custom_TIMEalert);
-
-//Serial.println("t0001");
-//
-  //  wifiManager.setTimeout(86400);    //เวลาในการเชื่อมต่อ เป็น วินาที   ตั้งที่ 1 วัน 
-    //WiFi.mode(WIFI_STA);
    
-
-  if (!wifiManager.autoConnect("Temperature Alert", "password")) { 
-    Serial.println("failed to connect and hit timeout");
+//Serial.println("t0001");
+  
+   //wifiManager.setTimeout(86400);    //เวลาในการเชื่อมต่อ เป็น วินาที   ตั้งที่ 1 วัน  
+    
+   // ESP.reset();
+   //WiFi.mode(WIFI_STA);
+  
+  wifiManager.setConnectTimeout(180);
+  wifiManager.setConnectRetries(100);
+  if (wifiManager.getWiFiIsSaved()) wifiManager.setEnableConfigPortal(false);
+  //wifiManager.autoConnect("AP");
+  wifiManager.autoConnect("Temperature Alert", "password");
+  /*if (!wifiManager.autoConnect("Temperature Alert", "password")) { 
+   Serial.println("failed to connect and hit timeout");
     delay(3000);
     ESP.reset();
     delay(5000);
-  }
+  }*/
   //Serial.println("t0001");
   Serial.println("wifi connected");
   strcpy(line_token, custom_line_token.getValue());
@@ -98,7 +101,10 @@
   //  Serial.println("t0001");
     configFile.close();
      // digitalWrite(LED_BUILTIN, LOW); 
-
+     
+   while(WiFi.status() != WL_CONNECTED){
+           ESP.reset();
+          }
     
   }
   
