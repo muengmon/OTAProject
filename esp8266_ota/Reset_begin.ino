@@ -1,4 +1,5 @@
 void Reset_begin() {
+  //รีเซตค่าเริ่มต้น
  bool ReadSwitch = digitalRead(RESET_PIN);
   if(ReadSwitch == pressed)
   {
