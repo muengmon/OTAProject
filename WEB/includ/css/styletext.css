@@ -1,0 +1,27 @@
+ @import url('includ/css/zhengminglishu.css');
+                
+.FormDigital{
+    background-color:#ffffff;
+	font-family: 'LED Digital 7', sans-serif;
+}
+
+p.h {
+	font-family: 'ZhengmingLishu', sans-serif;
+  	font-size: 60px;
+	color: blue;
+}
+p.a {
+  font-family: 'ZhengmingLishu', sans-serif;
+  font-size: 30px;
+}
+
+p.b {
+	font-family: 'ZhengmingLishu', sans-serif;	
+	color: rgb(0, 0, 0);
+}
+p.c {
+	font-family: 'ZhengmingLishu', sans-serif;
+  	font-size: 15px;
+	color: #000000;
+  	text-align: center;
+}
